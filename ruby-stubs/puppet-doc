@@ -1,0 +1,14 @@
+require 'English'
+
+status = 0
+ARGV.each do |arg|
+  output = `puppet strings #{arg} | grep -Eo -e '^\\[warn\\]:.*$'`
+  next if $CHILD_STATUS.exitstatus == 1
+  puts "#{arg}: failed Puppet validation"
+  puts output
+  status = 1
+end
+
+exit status
+
+# vim: ft=ruby

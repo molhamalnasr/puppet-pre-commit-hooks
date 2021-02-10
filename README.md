@@ -17,6 +17,8 @@ Provides the following hooks:
 * **puppet-validate:** uses [`puppet parser validate`][puppet-parser] to check the syntax of
   Puppet manifests.
 
+* puppet-doc uses puppet-srings to check for documentation in manifests
+
 * **r10k-validate:** uses [r10k][r10k] to validate [Puppetfile][puppetfile] syntax.
 
 * **ruby-validate:** uses [`ruby -c`][ruby-c] to validate the syntax of ruby code.
@@ -46,8 +48,9 @@ Provides the following hooks:
         - id: epp-validate
         - id: erb-validate
         - id: puppet-lint
+        - id: puppet-doc
           args:
-            -   --fail-on-warnings
+            - --fail-on-warnings
         - id: puppet-validate
         - id: r10k-validate
         - id: ruby-validate
