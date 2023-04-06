@@ -1,1 +1,69 @@
-.pre-commit-hooks.yaml
+- id: epp-validate
+  additional_dependencies: ['puppet']
+  description: Validate syntax of Puppet EPP templates
+  entry: epp-validate
+  files: \.epp$
+  language: ruby
+  language_version: 2.5.8
+  name: Validate EPP templates
+
+- id: erb-validate
+  description: Validate syntax of Ruby ERB templates
+  entry: erb-validate
+  files: \.erb$
+  language: ruby
+  name: Validate ERB templates
+
+- id: g10k-validate
+  description: Validate syntax of Puppetfile using g10k
+  entry: g10k-validate
+  files: ^Puppetfile$
+  language: ruby
+  name: Validate g10k Puppetfile
+
+- id: puppet-lint
+  additional_dependencies: ['puppet-lint']
+  description: Check Puppet manifests for stylistic problems
+  entry: puppet-lint
+  files: \.pp$
+  language: ruby
+  language_version: 2.5.8
+  name: Validate Puppet lint
+
+- id: puppet-doc
+  additional_dependencies:
+    - puppet
+    - puppet-strings
+  description: Check Puppet manifests for documentation
+  entry: puppet-doc
+  files: \.pp$
+  language: ruby
+  language_version: 2.5.8
+  name: Validate Puppet documentation
+
+- id: puppet-validate
+  additional_dependencies: ['puppet']
+  description: Validate syntax of Puppet manifests
+  entry: puppet-validate
+  files: \.pp$
+  language: ruby
+  language_version: 2.5.8
+  name: Validate Puppet manifests
+
+- id: r10k-validate
+  additional_dependencies: ['r10k']
+  description: Validate syntax of Puppetfile using r10k
+  entry: r10k-validate
+  files: ^Puppetfile$
+  language: ruby
+  language_version: 2.5.8
+  name: Validate r10k Puppetfile
+
+- id: ruby-validate
+  additional_dependencies: ['ruby']
+  description: Validate syntax of ruby code
+  entry: ruby-validate
+  files: \.rb$
+  language: ruby
+  name: Validate ruby syntax
+
