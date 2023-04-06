@@ -1,3 +1,4 @@
+---
 - id: epp-validate
   additional_dependencies: ['puppet']
   description: Validate syntax of Puppet EPP templates
@@ -38,7 +39,7 @@
   entry: puppet-doc
   files: \.pp$
   language: ruby
-  language_version: 2.5.8
+  language_version: 2.9.0
   name: Validate Puppet documentation
 
 - id: puppet-validate
