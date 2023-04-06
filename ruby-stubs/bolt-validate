@@ -2,9 +2,9 @@ require 'English'
 
 status = 0
 ARGV.each do |file|
-  output = `r10k puppetfile check --puppetfile="#{file}" 2>&1`
+  output = `puppet parser validate --tasks "#{file}" 2>&1`
   next if $CHILD_STATUS.exitstatus == 0
-  puts "#{file}: failed r10k validation"
+  puts "#{file}: failed plan validation"
   puts output
   status = 1
 end
