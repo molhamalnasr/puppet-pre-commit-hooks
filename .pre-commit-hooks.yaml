@@ -13,7 +13,7 @@
   entry: epp-validate
   files: \.epp$
   language: ruby
-  language_version: 2.5.8
+  language_version: 2.7.2
   name: Validate EPP templates
 
 - id: erb-validate
@@ -36,7 +36,7 @@
   entry: puppet-lint
   files: \.pp$
   language: ruby
-  language_version: 2.5.8
+  language_version: 2.7.2
   name: Validate Puppet lint
 
 - id: puppet-doc
@@ -57,7 +57,7 @@
   files: \.pp$
   exclude: plans/
   language: ruby
-  language_version: 2.5.8
+  language_version: 2.7.2
   name: Validate Puppet manifests
 
 - id: r10k-validate
@@ -66,7 +66,7 @@
   entry: r10k-validate
   files: Puppetfile$
   language: ruby
-  language_version: 2.5.8
+  language_version: 2.7.2
   name: Validate r10k Puppetfile
 
 - id: ruby-validate
