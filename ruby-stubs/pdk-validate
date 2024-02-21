@@ -5,7 +5,7 @@ original_directory = Dir.pwd
 
 ARGV.each do |arg|
   Dir.chdir(File.join(original_directory, 'site', 'profile')) do
-    output = `pdk validate #{arg}`
+    output = `pdk validate #{arg} | grep -E -i "(ERROR|WARNING)"`
     next if $CHILD_STATUS.exitstatus != 0
     puts "#{arg}: failed Puppet validation with PDK"
     puts output
