@@ -1,0 +1,20 @@
+require 'English'
+
+status = 0
+original_directory = Dir.pwd
+
+ARGV.each do |arg|
+  Dir.chdir(File.join(original_directory, 'site', 'profile')) do
+    output = `pdk validate #{arg}`
+    next if $CHILD_STATUS.exitstatus != 0
+    puts "#{arg}: failed Puppet validation with PDK"
+    puts output
+    status = 1
+  end
+end
+
+Dir.chdir(original_directory)
+
+exit status
+
+# vim: ft=ruby

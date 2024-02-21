@@ -55,6 +55,13 @@
   language: ruby
   name: Validate Puppet manifests
 
+- id: pdk-validate
+  additional_dependencies: ['pdk']
+  description: Validate syntax of Puppet manifests with PDK
+  entry: pdk-validate
+  language: ruby
+  name: Validate Puppet manifests with PDK
+
 - id: r10k-validate
   additional_dependencies: ['r10k']
   description: Validate syntax of Puppetfile using r10k
