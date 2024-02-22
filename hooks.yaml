@@ -56,9 +56,9 @@
   name: Validate Puppet manifests
 
 - id: pdk-validate
-  additional_dependencies: ['pdk']
   description: Validate syntax of Puppet manifests with PDK
   entry: pdk-validate
+  files: site/profile(?:\/[^\/]+)*\/[^\/]+\.(json|pp|epp|rb|yaml|yml)$
   language: ruby
   name: Validate Puppet manifests with PDK
 
