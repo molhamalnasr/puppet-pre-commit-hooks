@@ -2,15 +2,48 @@ require 'English'
 
 status = 0
 original_directory = Dir.pwd
+report_file_path = "#{original_directory}/pdk-report.txt"
+files_to_validate = ARGV.map { |arg| arg.sub(/\Asite\/profile\//, '') }
 
-ARGV.each do |arg|
-  Dir.chdir(File.join(original_directory, 'site', 'profile')) do
-    output = `pdk validate #{arg} | grep -E -i "(ERROR|WARNING)"`
-    next if $CHILD_STATUS.exitstatus != 0
-    puts "#{arg}: failed Puppet validation with PDK"
-    puts output
-    status = 1
-  end
+# file_extension = {file_extension: [validator1, ...], ...}
+file_extension = {
+    json: ["metadata", "tasks"],
+    pp: ["puppet"],
+    epp: ["puppet"],
+    rb: ["ruby"],
+    yaml: ["yaml"],
+    yml: ["yaml"],
+}
+
+Dir.chdir(File.join(original_directory, 'site', 'profile')) do
+    validation_types = []
+
+    files_to_validate.each do |file|
+        # Extract the extension (e.g., "json", "pp", etc.)
+        extension = File.extname(file)[1..-1]
+
+        # Check if the extension exists in the file_extension hash
+        if file_extension.key?(extension.to_sym)
+            # Push each child element of the key's array to validators
+            validation_types.concat(file_extension[extension.to_sym])
+        end
+    end
+
+    validation_types_str = validation_types.join(',')
+    files_to_validate_str = files_to_validate.join(' ')
+    validation_output = `pdk validate --format=text:#{report_file_path} #{validation_types_str} #{files_to_validate_str} &> /dev/null`
+
+    # Read the report file and extract lines starting with 'pdk (ERROR): ' or 'pdk (WARNING): '
+    report_lines = File.readlines(report_file_path).select { |line| line.match(/\Apdk \(ERROR\): |pdk \(WARNING\): /) }
+
+    # If there are report lines found, set status to 1 and print the lines
+    if report_lines.any?
+        status = 1
+        report_lines.each { |line| puts line }
+    end
+
+    # Delete the report file
+    File.delete(report_file_path) if File.exist?(report_file_path)
 end
 
 Dir.chdir(original_directory)
